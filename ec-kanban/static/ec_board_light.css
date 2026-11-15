@@ -1,0 +1,138 @@
+/* 综合分析看板 · 浅色版
+   配色取自公司 logo 的各种蓝：深蓝 #1E2F92 / 中蓝 #2F5FC4 / 亮蓝 #2F7BE0 / 青 #12B8CE / 浅青 #5FD4E8
+   只在 html.light 生效，深色版一行不动 */
+
+html.light body { background: #eef4fc; }
+
+html.light #screen {
+  background:
+    linear-gradient(rgba(47,107,208,.055) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, rgba(47,107,208,.055) 1px, transparent 1px) 0 0 / 48px 48px,
+    radial-gradient(ellipse at 50% 0%, rgba(47,123,224,.16), transparent 62%),
+    linear-gradient(160deg, #ffffff 0%, #f4f9ff 46%, #e8f1fd 100%);
+}
+/* 深色那层压暗和扫描光在浅色下要去掉 */
+html.light #screen::before { background: radial-gradient(ellipse at 50% 45%, transparent 58%, rgba(47,107,208,.07) 100%); }
+html.light #screen::after {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(18,184,206,.45), transparent);
+  box-shadow: none;
+}
+html.light .bg-deco-1 { background: radial-gradient(circle, rgba(47,123,224,.18), transparent 70%); }
+html.light .bg-deco-2 { background: radial-gradient(circle, rgba(18,184,206,.14), transparent 70%); }
+
+/* 顶栏 */
+html.light .topbar { border-bottom: 1px solid rgba(47,107,208,.22); }
+html.light .brand::before, html.light .brand::after {
+  background: repeating-linear-gradient(115deg, rgba(47,107,208,.45) 0 3px, transparent 3px 9px);
+}
+html.light .brand-logo {
+  background: linear-gradient(135deg, #1E2F92, #12B8CE);
+  box-shadow: 0 6px 18px rgba(30,47,146,.24);
+}
+html.light .brand-logo i { background: #ffffff; }
+html.light .brand-text h1 { color: #1E2F92; text-shadow: none; -webkit-text-fill-color: #1E2F92; }
+html.light .brand-text p { color: #5C7FA8; }
+html.light .top-meta { color: #4E6E96; }
+html.light .top-meta b { color: #1E5BC6; }
+html.light .top-meta { background: linear-gradient(90deg, rgba(255,255,255,.96) 70%, rgba(255,255,255,0)); }
+html.light .divider { background: rgba(47,107,208,.24); }
+html.light .live i { background: #12B8CE; box-shadow: 0 0 0 4px rgba(18,184,206,.16); }
+html.light .range-box input {
+  color: #1E3A6E; background: #ffffff; border: 1px solid rgba(47,107,208,.28);
+}
+html.light .range-box input::-webkit-calendar-picker-indicator { filter: none; opacity: .65; }
+html.light .range-box i { color: #6B8CB8; }
+html.light .range-box button { color: #ffffff; background: linear-gradient(135deg, #2F7BE0, #1E5BC6); }
+html.light .range-box button.ghost { color: #2F5FC4; background: #ffffff; border: 1px solid rgba(47,107,208,.30); }
+html.light .range-box button.ghost:hover { background: rgba(47,107,208,.08); }
+html.light .range-hint { color: #6B8CB8; }
+html.light .range-hint.err { color: #C2571F; }
+
+/* 卡片底 */
+html.light .card {
+  background: linear-gradient(160deg, #ffffff, #f7fbff);
+  border: 1px solid rgba(47,107,208,.18);
+  box-shadow: 0 2px 10px rgba(31,58,120,.06), inset 0 0 0 1px rgba(255,255,255,.6);
+  backdrop-filter: none;
+}
+html.light .card::before { border-left: 2px solid #12B8CE; border-top: 2px solid #12B8CE; }
+html.light .card::after { border-right: 2px solid #12B8CE; border-bottom: 2px solid #12B8CE; }
+
+/* 卡片标题 */
+html.light .card-head { border-bottom: 1px solid rgba(47,107,208,.16); }
+html.light .card-head::before { background: repeating-linear-gradient(115deg, rgba(47,107,208,.40) 0 2px, transparent 2px 7px); }
+html.light .card-head h2 { color: #1E2F92; text-shadow: none; font-weight: 500; }
+html.light .card-head h2::after { background: #12B8CE; box-shadow: none; }
+html.light .card-head span { color: #8AA6C8; }
+
+/* 板块标题条 */
+html.light .part-head { color: #1E2F92; }
+html.light .part-head b { color: #2F7BE0; }
+html.light .part-head span { color: #6B8CB8; }
+html.light .part-head span i { color: #1E5BC6; }
+
+/* 顶部汇总条 */
+html.light .kpi-strip .kpi-item { border-right: 1px solid rgba(47,107,208,.14); }
+html.light .kpi-strip span { color: #6B8CB8; }
+html.light .kpi-strip b { text-shadow: none; }
+html.light .kpi-strip .kpi-item:nth-child(1) b { color: #1E2F92; }
+html.light .kpi-strip .kpi-item:nth-child(2) b { color: #2F7BE0; }
+html.light .kpi-strip .kpi-item:nth-child(3) b { color: #2F5FC4; }
+html.light .kpi-strip .kpi-item:nth-child(4) b { color: #0F91AE; }
+html.light .kpi-strip .kpi-item:nth-child(5) b { color: #12B8CE; }
+html.light .kpi-strip .kpi-item:nth-child(6) b { color: #1E5BC6; }
+html.light .kpi-strip small, html.light .kpi-val small { color: #7E9BBD; }
+
+/* 四板块表格 */
+html.light .ec4-wrap { background: radial-gradient(ellipse at 50% 0%, rgba(47,123,224,.07), transparent 62%); }
+html.light #ec4Table th {
+  color: #1E3A6E; background: linear-gradient(180deg, #e8f1fd, #dee9fa);
+  border-bottom: 1px solid rgba(47,107,208,.32);
+}
+html.light #ec4Table td { color: #2F4C74; }
+html.light #ec4Table td.ec4-group { color: #1E2F92; background: linear-gradient(160deg, rgba(47,123,224,.16), rgba(47,123,224,.08)); }
+html.light #ec4Table td.ec4-name { color: #4E6E96; }
+html.light #ec4Table td.ec4-label { color: #1E3A6E; background: rgba(47,107,208,.10); }
+html.light #ec4Table tr.ec4-section td {
+  color: #1E2F92; background: linear-gradient(90deg, rgba(47,123,224,.20), rgba(255,255,255,.2));
+  border-top: 1px solid rgba(47,107,208,.26); box-shadow: inset 3px 0 0 #2F7BE0;
+}
+html.light #ec4Table tr.ec4-section td b { color: #ffffff; background: #2F7BE0; }
+html.light #ec4Table tr.ec4-section td span { color: #7E9BBD; }
+html.light #ec4Table tr.ec4-total td { color: #1E5BC6; background: rgba(47,107,208,.09); font-weight: 500; }
+html.light #ec4Table tr.ec4-avg td { color: #0F91AE; background: rgba(18,184,206,.08); }
+html.light #ec4Table tbody tr:nth-child(even):not(.ec4-total):not(.ec4-avg) td:not(.ec4-group):not(.ec4-label):not(.cell-max):not(.cell-min) { background: rgba(47,107,208,.035); }
+html.light #ec4Table tbody tr:hover td:not(.cell-max):not(.cell-min) { background: rgba(47,123,224,.08); }
+/* 最高橙、最低蓝，浅底上要压深一点才看得清 */
+html.light #ec4Table td.cell-max { color: #C2571F; font-weight: 600; background: none; }
+html.light #ec4Table td.cell-min { color: #1E5BC6; font-weight: 600; background: none; }
+
+/* 右侧排名 */
+html.light .rank-head { color: #7E9BBD; background: rgba(47,107,208,.06); border-bottom: 1px solid rgba(47,107,208,.16); }
+html.light .rank-row {
+  color: #2F4C74; border-bottom: 1px dashed rgba(47,107,208,.14);
+  background-image: linear-gradient(90deg, rgba(47,123,224,.16) var(--w), transparent var(--w));
+}
+html.light .rank-row span:nth-child(2) { color: #1E2F92; }
+html.light .rank-row span:nth-child(3) { color: #6B8CB8; }
+html.light .rank-row:hover { background-color: rgba(47,123,224,.08); }
+html.light .rk-no { color: #7E9BBD; }
+html.light .rank-row:nth-child(-n+3) .rk-no { color: #ffffff; background: linear-gradient(135deg, #2F7BE0, #1E5BC6); }
+html.light .rank-row:nth-child(1) .rk-no { color: #ffffff; background: linear-gradient(135deg, #12B8CE, #0F91AE); }
+
+/* 页脚 */
+html.light .footer { color: #7E9BBD; }
+html.light .footer b { color: #2F5FC4; }
+
+/* 空状态 */
+html.light .empty-mask { background: rgba(238,244,252,.94); }
+html.light .empty-box { background: #ffffff; border: 1px solid rgba(47,107,208,.20); box-shadow: 0 10px 30px rgba(31,58,120,.12); }
+html.light .empty-box b { color: #1E2F92; }
+html.light .empty-box span { color: #6B8CB8; }
+html.light .empty-box a { color: #1E5BC6; background: rgba(47,107,208,.08); border: 1px solid rgba(47,107,208,.30); }
+html.light .empty-box a:hover { background: rgba(47,107,208,.16); }
+
+/* 主题切换按钮的浅色皮肤（基础样式在 ec_board.css） */
+html.light .theme-toggle { color: #1E5BC6; background: #ffffff; border: 1px solid rgba(47,107,208,.28); }
+html.light .theme-toggle:hover { background: rgba(47,107,208,.08); }

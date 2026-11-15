@@ -1,0 +1,96 @@
+/* EC 大屏：只补员工轮播明细，其余布局与深色主题沿用 style.css / theme-dark.css */
+
+.staff-head, .staff-row { display: grid; grid-template-columns: 1fr .9fr .65fr .65fr .65fr; align-items: center; }
+.staff-head { padding: 8px 14px; font-size: 11.5px; color: #5f9bc4; background: rgba(0,180,220,.08); border-bottom: 1px solid rgba(0,229,208,.12); }
+.staff-scroll { flex: 1; min-height: 0; overflow: hidden; padding: 0 12px 8px; }
+.staff-row { height: 32px; padding: 0 2px; font-size: 12px; color: #a9cbe6; border-bottom: 1px dashed rgba(0,180,220,.13); font-variant-numeric: tabular-nums; }
+.staff-row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; }
+.staff-row span:first-child { text-align: left; color: #dff4ff; }
+.staff-row span:nth-child(2) { font-size: 11px; color: #6f9dc0; }
+.staff-row span:not(:first-child):not(:nth-child(2)) { font-family: "DIN Alternate", Consolas, monospace; }
+.staff-row:hover { background: rgba(0,229,208,.07); }
+.staff-row .cell-max { color: #ffe4e0; background: rgba(214,64,64,.42); box-shadow: inset 0 0 0 1px rgba(255,120,110,.45); border-radius: 3px; }
+.staff-row .cell-min { color: #d8fff0; background: rgba(20,148,108,.42); box-shadow: inset 0 0 0 1px rgba(70,224,170,.45); border-radius: 3px; }
+
+.footer b { color: #00e5d0; font-weight: 500; }
+
+/* 数据描述（每数据一句话）+ 各组人员名单 */
+.ec-insight { height: 108px; flex: none; display: flex; flex-direction: column; gap: 8px; padding: 6px 0 4px; position: relative; z-index: 2; }
+.insight-lines { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
+.insight-item { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; overflow: hidden; font-size: 11.5px; line-height: 1.45; color: #a9cbe6; background: rgba(12,26,60,.82); border: 1px solid rgba(0,180,220,.20); }
+.insight-item::before { content: ""; width: 3px; align-self: stretch; flex: none; border-radius: 2px; background: #00e5d0; }
+.insight-item.hl { color: #ffd54a; background: rgba(60,45,10,.35); border-color: rgba(255,213,74,.42); }
+.insight-item.hl::before { background: #ffd54a; }
+.group-roster { height: 28px; flex: none; display: flex; gap: 14px; }
+.roster-line { flex: 1; display: flex; align-items: center; gap: 8px; padding: 0 12px; border-radius: 6px; white-space: nowrap; overflow: hidden; font-size: 11.5px; color: #8fb8d8; background: rgba(0,136,200,.10); border: 1px solid rgba(0,229,208,.16); }
+.roster-line b { flex: none; font-weight: 500; color: #00e5d0; }
+.roster-line span { overflow: hidden; text-overflow: ellipsis; }
+.roster-line em { flex: none; margin-left: auto; font-style: normal; color: #ffd54a; }
+
+/* 入库渠道分析：11 个渠道横排，数值 + 占比 */
+.ec-channel { height: 86px; flex: none; display: flex; flex-direction: column; gap: 6px; padding: 2px 0 4px; position: relative; z-index: 2; }
+.channel-title { height: 20px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 6px; font-size: 12px; color: #8fb8d8; }
+.channel-title b { position: relative; padding-left: 10px; font-size: 13px; font-weight: 500; letter-spacing: 1px; color: #dff4ff; }
+.channel-title b::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 13px; border-radius: 2px; background: #ffd54a; }
+.channel-title span { font-size: 11px; color: #5f9bc4; }
+.channel-list { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(11, 1fr); gap: 8px; }
+.channel-item { display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 4px 8px; border-radius: 7px; overflow: hidden; background: rgba(12,26,60,.82); border: 1px solid rgba(0,180,220,.20); }
+.channel-item.top { border-color: rgba(255,213,74,.42); background: rgba(60,45,10,.30); }
+.ch-name { font-size: 10.5px; color: #a9cbe6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ch-data { display: flex; align-items: baseline; gap: 4px; font-family: "DIN Alternate", Consolas, monospace; font-variant-numeric: tabular-nums; }
+.ch-data b { font-size: 17px; font-weight: 500; color: #00e5d0; }
+.ch-data span { font-size: 10px; color: #6f9dc0; }
+.ch-data em { margin-left: auto; font-style: normal; font-size: 11px; color: #ffd54a; }
+.channel-item.top .ch-data b { color: #ffd54a; }
+.ch-bar { height: 3px; border-radius: 2px; overflow: hidden; background: rgba(0,180,220,.16); }
+.ch-bar i { display: block; height: 100%; border-radius: 2px; background: linear-gradient(90deg, #0066c8, #00e5d0); }
+.channel-item.top .ch-bar i { background: linear-gradient(90deg, #a86a10, #ffd54a); }
+
+/* 压缩顶部信息区，把高度还给图表；左栏按内容分配 */
+.ec-insight { height: 92px; gap: 6px; padding: 4px 0 2px; }
+.insight-item { padding: 4px 9px; font-size: 11px; }
+.group-roster { height: 24px; }
+.roster-line { font-size: 11px; }
+.ec-channel { height: 68px; gap: 4px; padding: 0 0 4px; }
+.channel-title { height: 14px; font-size: 11px; }
+.channel-title b { font-size: 12px; }
+.channel-list { gap: 7px; }
+.channel-item { padding: 2px 7px; gap: 1px; }
+.ch-name { font-size: 10px; }
+.ch-data b { font-size: 15px; }
+.ch-data em { font-size: 10px; }
+.ch-bar { height: 2px; }
+
+.grid > .col:first-child > .card:nth-child(1) { flex: 1.35; }
+.grid > .col:first-child > .card:nth-child(2) { flex: 1; }
+.grid > .col:first-child > .card:nth-child(3) { flex: .95; }
+
+/* 版面比例优化：压缩顶部信息区，把高度让给图表 */
+.kpi-row { height: 112px; padding: 12px 0; }
+.kpi-card { padding: 0 16px; gap: 12px; }
+.kpi-icon { width: 46px; height: 46px; border-radius: 12px; }
+.kpi-icon svg { width: 24px; height: 24px; }
+.kpi-num .num { font-size: 27px; }
+.kpi-label { font-size: 14px; }
+.kpi-foot { font-size: 10.5px; }
+
+.ec-insight { height: 74px; padding: 2px 0; gap: 4px; }
+.insight-lines { gap: 8px; }
+.insight-item { padding: 3px 8px; font-size: 10.5px; line-height: 1.35; }
+.group-roster { height: 20px; }
+.roster-line { font-size: 10.5px; padding: 0 10px; background: rgba(12,26,60,.82); border-color: rgba(0,180,220,.20); }
+.roster-line em { font-size: 10px; }
+
+.ec-channel { height: 58px; padding: 0 0 2px; gap: 2px; }
+.channel-title { height: 12px; font-size: 10.5px; }
+.channel-title b { font-size: 11px; }
+.channel-title span { font-size: 10px; }
+.channel-list { gap: 6px; }
+.channel-item { padding: 1px 6px; }
+.ch-name { font-size: 9.5px; }
+.ch-data b { font-size: 13px; }
+.ch-data em { font-size: 9.5px; }
+
+/* 中间栏比例：雷达不再独大，活跃度抬高 */
+.center .map-card { flex: 1.6; }
+.center .trend-card { flex: 1.15; }

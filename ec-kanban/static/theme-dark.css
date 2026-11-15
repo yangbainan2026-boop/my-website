@@ -1,0 +1,144 @@
+/* 数字化深色看板主题：以覆盖方式追加，原浅蓝样式与逻辑保持不变 */
+
+body { background: #070d20; }
+
+#screen {
+  background:
+    linear-gradient(rgba(72,150,230,.055) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, rgba(72,150,230,.055) 1px, transparent 1px) 0 0 / 48px 48px,
+    radial-gradient(ellipse at 50% 0%, rgba(0,130,230,.20), transparent 62%),
+    linear-gradient(160deg, #0a1028 0%, #0c1535 48%, #101a3c 100%);
+}
+
+/* 暗角 + 扫描线，增强数字屏幕质感 */
+#screen::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%, transparent 52%, rgba(2,6,20,.60) 100%);
+}
+#screen::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(0,229,208,.45), transparent);
+  box-shadow: 0 0 18px rgba(0,229,208,.35);
+  animation: darkScan 9s linear infinite;
+}
+@keyframes darkScan { from { transform: translateY(0); } to { transform: translateY(1080px); } }
+
+.bg-deco-1 { background: radial-gradient(circle, rgba(0,170,255,.20), transparent 70%); }
+.bg-deco-2 { background: radial-gradient(circle, rgba(0,229,208,.14), transparent 70%); }
+
+/* 顶部：标题居中，两侧斜纹装饰 */
+.topbar { justify-content: center; border-bottom: 1px solid rgba(0,229,208,.22); }
+.brand::before, .brand::after {
+  content: ""; width: 230px; height: 14px; flex: none; opacity: .7;
+  background: repeating-linear-gradient(115deg, rgba(0,229,208,.55) 0 3px, transparent 3px 9px);
+}
+.brand::after { transform: scaleX(-1); }
+.brand-logo { background: linear-gradient(135deg, #0088c8, #00e5d0); box-shadow: 0 0 22px rgba(0,229,208,.42); }
+.brand-logo i { background: #04162c; }
+.brand-text h1 {
+  background: none; -webkit-text-fill-color: #eaffff; color: #eaffff;
+  font-size: 32px; letter-spacing: 5px; text-shadow: 0 0 20px rgba(0,229,208,.55);
+}
+.brand-text p { color: #4f83b0; letter-spacing: 3px; }
+.top-meta { position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: #8fb8d8; }
+.top-meta b { color: #00e5d0; font-family: "DIN Alternate", "Roboto Mono", Consolas, monospace; }
+.divider { background: rgba(0,229,208,.30); }
+.live i { background: #00e5d0; box-shadow: 0 0 0 4px rgba(0,229,208,.18); }
+@keyframes livePulse { 50% { box-shadow: 0 0 0 9px rgba(0,229,208,0); } }
+
+/* 核心指标卡片 */
+.kpi-card {
+  background: linear-gradient(160deg, rgba(13,30,66,.92), rgba(8,18,44,.88));
+  border: 1px solid rgba(0,229,208,.28);
+  box-shadow: inset 0 0 22px rgba(0,150,220,.10), 0 0 18px rgba(0,120,200,.14);
+  backdrop-filter: blur(8px);
+}
+.kpi-card::after {
+  /* 原左侧竖条改为顶部发光细线 */
+  left: 0; top: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, #00e5d0, transparent);
+}
+.kpi-icon {
+  background: linear-gradient(135deg, rgba(0,229,208,.18), rgba(0,120,220,.12));
+  border: 1px solid rgba(0,229,208,.35);
+  box-shadow: inset 0 0 16px rgba(0,229,208,.16);
+}
+/* 图标常驻可见：原动画从 opacity:0 起，切换瞬间会变成空白方块 */
+.kpi-icon svg {
+  stroke: #00e5d0; stroke-width: 2.2; width: 30px; height: 30px;
+  filter: drop-shadow(0 0 5px rgba(0,229,208,.7));
+  animation: darkIconIn .6s ease;
+}
+@keyframes darkIconIn { from { opacity: .55; transform: scale(.85) rotate(-12deg); } to { opacity: 1; transform: none; } }
+.kpi-label { color: #8fb8d8; }
+.num, .rank-value, .progress-grid b, .progress-num .num {
+  font-family: "DIN Alternate", "Roboto Mono", Consolas, monospace;
+}
+.kpi-num .num { color: #eaffff; text-shadow: 0 0 16px rgba(0,229,208,.65); letter-spacing: .5px; }
+.kpi-num small { color: #6f9dc0; }
+.kpi-foot { color: #4e7aa4; letter-spacing: 1px; }
+.kpi-card:nth-child(2) .kpi-num .num { color: #59b6ff; text-shadow: 0 0 16px rgba(47,155,255,.6); }
+.kpi-card:nth-child(3) .kpi-num .num { color: #ffd54a; text-shadow: 0 0 16px rgba(255,213,74,.55); }
+.kpi-card:nth-child(4) .kpi-num .num { color: #00e5a8; text-shadow: 0 0 16px rgba(0,229,168,.55); }
+.kpi-card:nth-child(5) .kpi-num .num { color: #ff9f6b; text-shadow: 0 0 16px rgba(255,159,107,.55); }
+
+/* 面板：深色玻璃 + 四角科技角标 */
+.card {
+  position: relative;
+  background: linear-gradient(160deg, rgba(12,26,60,.90), rgba(8,16,40,.86));
+  border: 1px solid rgba(0,180,220,.24);
+  box-shadow: inset 0 0 26px rgba(0,140,220,.07), 0 0 20px rgba(0,90,180,.14);
+  backdrop-filter: blur(10px);
+}
+.card::before, .card::after { content: ""; position: absolute; width: 16px; height: 16px; pointer-events: none; z-index: 3; }
+.card::before { left: 6px; top: 6px; border-left: 2px solid #00e5d0; border-top: 2px solid #00e5d0; }
+.card::after { right: 6px; bottom: 6px; border-right: 2px solid #00e5d0; border-bottom: 2px solid #00e5d0; }
+.card-head { position: relative; justify-content: center; border-bottom: 1px solid rgba(0,229,208,.16); }
+.card-head::before {
+  content: ""; position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  width: 54px; height: 10px; opacity: .75;
+  background: repeating-linear-gradient(115deg, rgba(0,229,208,.55) 0 2px, transparent 2px 7px);
+}
+.card-head h2 { color: #dff4ff; font-size: 16px; letter-spacing: 1.5px; padding-left: 0; text-shadow: 0 0 12px rgba(0,180,255,.35); }
+.card-head h2::before { display: none; }
+.card-head h2::after {
+  content: ""; position: absolute; right: -15px; top: 50%; transform: translateY(-50%);
+  width: 6px; height: 6px; border-radius: 50%; background: #00e5d0;
+  box-shadow: 0 0 9px #00e5d0; animation: darkBlink 1.8s ease-in-out infinite;
+}
+@keyframes darkBlink { 0%, 100% { opacity: 1; } 50% { opacity: .2; } }
+.card-head span { position: absolute; right: 14px; color: #3f7aa8; font-size: 10px; }
+
+/* 销售明细 */
+.detail-head { background: rgba(0,180,220,.08); color: #5f9bc4; border-bottom: 1px solid rgba(0,229,208,.12); }
+.detail-row { color: #a9cbe6; border-bottom: 1px dashed rgba(0,180,220,.13); }
+.detail-row span:last-child { color: #00e5d0; text-shadow: 0 0 9px rgba(0,229,208,.4); }
+.detail-row:hover { background: rgba(0,229,208,.09); }
+
+/* 地区热榜 */
+.rank-no { background: rgba(0,180,220,.12); color: #7fd8e8; border: 1px solid rgba(0,229,208,.25); }
+.rank-row:nth-child(-n+3) .rank-no {
+  background: linear-gradient(135deg, #00e5d0, #0088c8); color: #04162c; border: none;
+  box-shadow: 0 0 12px rgba(0,229,208,.45);
+}
+.rank-name { color: #c5e2f5; }
+.rank-bar { background: rgba(0,180,220,.14); }
+.rank-bar i { background: linear-gradient(90deg, #0088c8, #00e5d0, #ffd54a); box-shadow: 0 0 9px rgba(0,229,208,.4); }
+.rank-value { color: #ffd54a; text-shadow: 0 0 9px rgba(255,213,74,.35); }
+
+/* 利润进度：仪表刻度 + 发光数字 */
+.progress-title { color: #8fb8d8; }
+.progress-num .num { color: #00e5d0; letter-spacing: 1px; text-shadow: 0 0 20px rgba(0,229,208,.6); }
+.progress-num small { color: #6f9dc0; }
+.progress-track {
+  background: rgba(0,180,220,.12);
+  background-image: repeating-linear-gradient(90deg, rgba(0,229,208,.18) 0 1px, transparent 1px 32px);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.35);
+}
+.progress-fill { background: linear-gradient(90deg, #0066c8, #00b8d4, #00e5d0, #ffd54a); box-shadow: 0 0 18px rgba(0,229,208,.6); }
+.progress-fill::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent); }
+.progress-grid div { background: rgba(0,180,220,.08); border: 1px solid rgba(0,229,208,.14); }
+.progress-grid span { color: #6698c0; }
+.progress-grid b { color: #ffd54a; }
+
+.footer { color: #4e7aa4; border-top: 1px solid rgba(0,229,208,.12); }

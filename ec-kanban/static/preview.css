@@ -1,0 +1,7 @@
+.preview-nav { display: flex; gap: 7px; align-items: center; white-space: nowrap; }
+.preview-nav a { color: #b9daed; text-decoration: none; padding: 4px 8px; border-radius: 5px; border: 1px solid transparent; }
+.preview-nav a:hover, .preview-nav a[aria-current="page"] { border-color: #426d91; color: #e4f5ff; }
+.preview-badge { background: #0a2b36; color: #98f4e6; border: 1px solid #398284; border-radius: 5px; font-size: 12px; padding: 4px 7px; white-space: nowrap; }
+html.light .preview-nav a { color: #24548a; }
+html.light .preview-badge { color: #145a69; background: #e4f8f9; border-color: #7bbece; }
+.m-head .preview-nav { justify-content: center; margin-top: 10px; }

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>有你互动EC系统 · 综合分析看板（手机版）</title>
+  <link rel="stylesheet" href="../static/ec_mobile.css">
+  <link rel="stylesheet" href="../static/empty_state.css">
+  <link rel="stylesheet" href="../static/preview.css">
+</head>
+<body>
+<div class="empty-mask" id="emptyMask" hidden>
+  <div class="empty-box">
+    <b>暂无数据</b>
+    <span>演示数据暂不可用</span>
+  </div>
+</div>
+<div class="m-page">
+  <header class="m-head">
+    <h1>有你互动EC系统 · 综合分析</h1>
+    <p>手机版 · EC 作业指标公开演示</p>
+    <div class="m-meta">
+      <span class="m-period" id="mPeriod">--</span>
+      <span class="preview-badge">演示数据</span><span class="m-clock" id="mClock">--:--</span>
+    </div>
+    <nav class="preview-nav" aria-label="看板视图"><a href="../ec-board/">综合看板</a><a href="../ec-screen/">深色大屏</a><a href="../ec-mobile/" aria-current="page">手机版</a></nav>
+  </header>
+
+  <section class="m-kpi">
+    <div class="m-kpi-item"><span>总入库</span><b data-kpi="instock">0</b><small>人</small></div>
+    <div class="m-kpi-item"><span>联系客户</span><b data-kpi="contact">0</b><small>人</small></div>
+    <div class="m-kpi-item"><span>跟进记录</span><b data-kpi="follow">0</b><small>条</small></div>
+    <div class="m-kpi-item"><span>通话次数</span><b data-kpi="calls">0</b><small>次</small></div>
+    <div class="m-kpi-item"><span>通话时长</span><b data-kpi="calltime">0</b><small>原值</small></div>
+    <div class="m-kpi-item"><span>共享客户</span><b data-kpi="share">0</b><small>人</small></div>
+  </section>
+
+  <section class="m-card">
+    <div class="m-card-head"><h2>客户阶段漏斗</h2><span>STAGE FUNNEL</span></div>
+    <div class="m-chart" id="mFunnel"></div>
+  </section>
+
+  <section class="m-card">
+    <div class="m-card-head"><h2>入库渠道 TOP 6</h2><span>CHANNEL</span></div>
+    <div class="m-chart" id="mChannel"></div>
+  </section>
+
+  <section class="m-card">
+    <div class="m-card-head"><h2>两组核心指标对比</h2><span>GROUP COMPARE</span></div>
+    <div class="m-chart" id="mCompare"></div>
+  </section>
+
+  <section class="m-card">
+    <div class="m-card-head"><h2>17 项指标能力雷达</h2><span>METRICS RADAR</span></div>
+    <div class="m-chart" id="mRadar"></div>
+  </section>
+
+  <section class="m-card">
+    <div class="m-card-head"><h2 id="mRankTitle">入库排名</h2><span>TOP 8</span></div>
+    <div class="m-rank-head"><span>#</span><span>姓名</span><span>组别</span><span>数值</span></div>
+    <div class="m-rank-list" id="mRankList"></div>
+  </section>
+
+  <section class="m-card">
+    <div class="m-card-head"><h2>四大板块数据总览</h2><span id="mTableHint">左右滑动看全部 17 项</span></div>
+    <div class="m-table-wrap"><table id="mTable"></table></div>
+    <div class="m-legend">亮橙字＝列内最高 · 亮蓝字＝列内最低</div>
+  </section>
+
+  <footer class="m-foot">
+    <span>两组 <b id="mPeople">0</b> 人</span>
+  </footer>
+</div>
+
+<script src="../static/echarts.min.js"></script>
+<script type="application/json" id="previewData">{"period":"4/1–4/30","groups":["运营一组","运营二组"],"people":{"运营一组":6,"运营二组":6},"members":[{"group":"运营一组","name":"成员01","score":26.4,"level":"low","values":{"入库数":44,"联系客户数":138,"跟进记录数":145,"共享客户数":34,"拜访联系":14,"微信联系":47,"通话次数":105,"通话时长":5250,"呼出次数":84,"呼出时长":3192,"本月新增归属":31,"当日联系":20,"跨日联系":11,"首联超过10分钟":15,"首联超过30分钟":8,"沟通阶段":14,"到访阶段":4}},{"group":"运营一组","name":"成员02","score":94.4,"level":"high","values":{"入库数":107,"联系客户数":274,"跟进记录数":361,"共享客户数":21,"拜访联系":4,"微信联系":87,"通话次数":212,"通话时长":10388,"呼出次数":148,"呼出时长":4884,"本月新增归属":71,"当日联系":46,"跨日联系":25,"首联超过10分钟":33,"首联超过30分钟":16,"沟通阶段":44,"到访阶段":7}},{"group":"运营一组","name":"成员03","score":58.3,"level":"mid","values":{"入库数":128,"联系客户数":175,"跟进记录数":237,"共享客户数":38,"拜访联系":16,"微信联系":43,"通话次数":120,"通话时长":6480,"呼出次数":104,"呼出时长":4264,"本月新增归属":98,"当日联系":69,"跨日联系":29,"首联超过10分钟":40,"首联超过30分钟":26,"沟通阶段":56,"到访阶段":8}},{"group":"运营一组","name":"成员04","score":73.6,"level":"mid","values":{"入库数":71,"联系客户数":261,"跟进记录数":246,"共享客户数":27,"拜访联系":8,"微信联系":48,"通话次数":186,"通话时长":8556,"呼出次数":158,"呼出时长":5056,"本月新增归属":56,"当日联系":37,"跨日联系":19,"首联超过10分钟":22,"首联超过30分钟":14,"沟通阶段":33,"到访阶段":7}},{"group":"运营一组","name":"成员05","score":54.2,"level":"mid","values":{"入库数":46,"联系客户数":205,"跟进记录数":284,"共享客户数":42,"拜访联系":15,"微信联系":43,"通话次数":164,"通话时长":8856,"呼出次数":148,"呼出时长":4736,"本月新增归属":39,"当日联系":28,"跨日联系":11,"首联超过10分钟":17,"首联超过30分钟":10,"沟通阶段":14,"到访阶段":4}},{"group":"运营一组","name":"成员06","score":58.3,"level":"mid","values":{"入库数":105,"联系客户数":184,"跟进记录数":236,"共享客户数":8,"拜访联系":16,"微信联系":54,"通话次数":125,"通话时长":4125,"呼出次数":83,"呼出时长":3403,"本月新增归属":80,"当日联系":51,"跨日联系":29,"首联超过10分钟":29,"首联超过30分钟":18,"沟通阶段":33,"到访阶段":8}},{"group":"运营二组","name":"成员07","score":86.1,"level":"high","values":{"入库数":99,"联系客户数":239,"跟进记录数":269,"共享客户数":36,"拜访联系":7,"微信联系":52,"通话次数":263,"通话时长":15254,"呼出次数":185,"呼出时长":7030,"本月新增归属":75,"当日联系":47,"跨日联系":28,"首联超过10分钟":30,"首联超过30分钟":14,"沟通阶段":37,"到访阶段":5}},{"group":"运营二组","name":"成员08","score":52.8,"level":"mid","values":{"入库数":42,"联系客户数":189,"跟进记录数":176,"共享客户数":17,"拜访联系":5,"微信联系":60,"通话次数":208,"通话时长":9568,"呼出次数":127,"呼出时长":3683,"本月新增归属":32,"当日联系":19,"跨日联系":13,"首联超过10分钟":10,"首联超过30分钟":5,"沟通阶段":14,"到访阶段":1}},{"group":"运营二组","name":"成员09","score":30.6,"level":"low","values":{"入库数":80,"联系客户数":113,"跟进记录数":108,"共享客户数":41,"拜访联系":7,"微信联系":70,"通话次数":101,"通话时长":3737,"呼出次数":60,"呼出时长":2700,"本月新增归属":50,"当日联系":36,"跨日联系":14,"首联超过10分钟":21,"首联超过30分钟":10,"沟通阶段":27,"到访阶段":6}},{"group":"运营二组","name":"成员10","score":18.1,"level":"base","values":{"入库数":44,"联系客户数":116,"跟进记录数":132,"共享客户数":35,"拜访联系":10,"微信联系":42,"通话次数":92,"通话时长":4508,"呼出次数":68,"呼出时长":2924,"本月新增归属":37,"当日联系":24,"跨日联系":13,"首联超过10分钟":13,"首联超过30分钟":7,"沟通阶段":20,"到访阶段":3}},{"group":"运营二组","name":"成员11","score":48.6,"level":"low","values":{"入库数":33,"联系客户数":205,"跟进记录数":178,"共享客户数":27,"拜访联系":5,"微信联系":70,"通话次数":181,"通话时长":10317,"呼出次数":144,"呼出时长":6048,"本月新增归属":23,"当日联系":17,"跨日联系":6,"首联超过10分钟":12,"首联超过30分钟":6,"沟通阶段":9,"到访阶段":3}},{"group":"运营二组","name":"成员12","score":48.6,"level":"low","values":{"入库数":71,"联系客户数":171,"跟进记录数":169,"共享客户数":14,"拜访联系":6,"微信联系":38,"通话次数":167,"通话时长":9185,"呼出次数":112,"呼出时长":4592,"本月新增归属":62,"当日联系":41,"跨日联系":21,"首联超过10分钟":24,"首联超过30分钟":11,"沟通阶段":34,"到访阶段":6}}],"metric_rows":[{"name":"入库数","g1_sum":501,"g1_avg":83.5,"g2_sum":369,"g2_avg":61.5,"total":870},{"name":"联系客户数","g1_sum":1237,"g1_avg":206.2,"g2_sum":1033,"g2_avg":172.2,"total":2270},{"name":"跟进记录数","g1_sum":1509,"g1_avg":251.5,"g2_sum":1032,"g2_avg":172.0,"total":2541},{"name":"共享客户数","g1_sum":170,"g1_avg":28.3,"g2_sum":170,"g2_avg":28.3,"total":340},{"name":"拜访联系","g1_sum":73,"g1_avg":12.2,"g2_sum":40,"g2_avg":6.7,"total":113},{"name":"微信联系","g1_sum":322,"g1_avg":53.7,"g2_sum":332,"g2_avg":55.3,"total":654},{"name":"通话次数","g1_sum":912,"g1_avg":152.0,"g2_sum":1012,"g2_avg":168.7,"total":1924},{"name":"通话时长","g1_sum":43655,"g1_avg":7275.8,"g2_sum":52569,"g2_avg":8761.5,"total":96224},{"name":"呼出次数","g1_sum":725,"g1_avg":120.8,"g2_sum":696,"g2_avg":116.0,"total":1421},{"name":"呼出时长","g1_sum":25535,"g1_avg":4255.8,"g2_sum":26977,"g2_avg":4496.2,"total":52512},{"name":"本月新增归属","g1_sum":375,"g1_avg":62.5,"g2_sum":279,"g2_avg":46.5,"total":654},{"name":"当日联系","g1_sum":251,"g1_avg":41.8,"g2_sum":184,"g2_avg":30.7,"total":435},{"name":"跨日联系","g1_sum":124,"g1_avg":20.7,"g2_sum":95,"g2_avg":15.8,"total":219},{"name":"首联超过10分钟","g1_sum":156,"g1_avg":26.0,"g2_sum":110,"g2_avg":18.3,"total":266},{"name":"首联超过30分钟","g1_sum":92,"g1_avg":15.3,"g2_sum":53,"g2_avg":8.8,"total":145},{"name":"沟通阶段","g1_sum":194,"g1_avg":32.3,"g2_sum":141,"g2_avg":23.5,"total":335},{"name":"到访阶段","g1_sum":38,"g1_avg":6.3,"g2_sum":24,"g2_avg":4.0,"total":62}],"compare":{"items":["入库数","联系客户数","跟进记录数","通话次数","共享客户数"],"series":[{"name":"运营一组","values":[501,1237,1509,912,170]},{"name":"运营二组","values":[369,1033,1032,1012,170]}]},"radar":{"indicators":[{"name":"入库数","max":501},{"name":"联系客户数","max":1237},{"name":"跟进记录数","max":1509},{"name":"共享客户数","max":170},{"name":"拜访联系","max":73},{"name":"微信联系","max":332},{"name":"通话次数","max":1012},{"name":"通话时长","max":52569},{"name":"呼出次数","max":725},{"name":"呼出时长","max":26977},{"name":"本月新增归属","max":375},{"name":"当日联系","max":251},{"name":"跨日联系","max":124},{"name":"首联超过10分钟","max":156},{"name":"首联超过30分钟","max":92},{"name":"沟通阶段","max":194},{"name":"到访阶段","max":38}],"series":[{"name":"运营一组","values":[501,1237,1509,170,73,322,912,43655,725,25535,375,251,124,156,92,194,38]},{"name":"运营二组","values":[369,1033,1032,170,40,332,1012,52569,696,26977,279,184,95,110,53,141,24]}]},"funnel":[{"name":"本月新增归属","value":654},{"name":"当日联系","value":435},{"name":"首联超过10分钟","value":266},{"name":"首联超过30分钟","value":145},{"name":"到访阶段","value":62}],"channels":[{"name":"微信好友","value":279,"ratio":30.4},{"name":"线下活动","value":194,"ratio":21.2},{"name":"抖音","value":153,"ratio":16.7},{"name":"转介绍","value":136,"ratio":14.8},{"name":"视频号","value":97,"ratio":10.6},{"name":"搜索推广","value":58,"ratio":6.3}],"activity_rank":[{"name":"成员07","group":"运营二组","instock":99,"contact":239,"calls":263,"share":36,"score":77.8},{"name":"成员02","group":"运营一组","instock":107,"contact":274,"calls":212,"share":21,"score":75.0},{"name":"成员03","group":"运营一组","instock":128,"contact":175,"calls":120,"share":38,"score":75.0},{"name":"成员05","group":"运营一组","instock":46,"contact":205,"calls":164,"share":42,"score":70.8},{"name":"成员04","group":"运营一组","instock":71,"contact":261,"calls":186,"share":27,"score":63.9},{"name":"成员09","group":"运营二组","instock":80,"contact":113,"calls":101,"share":41,"score":55.6},{"name":"成员06","group":"运营一组","instock":105,"contact":184,"calls":125,"share":8,"score":47.2},{"name":"成员11","group":"运营二组","instock":33,"contact":205,"calls":181,"share":27,"score":41.7},{"name":"成员01","group":"运营一组","instock":44,"contact":138,"calls":105,"share":34,"score":37.5},{"name":"成员10","group":"运营二组","instock":44,"contact":116,"calls":92,"share":35,"score":37.5},{"name":"成员12","group":"运营二组","instock":71,"contact":171,"calls":167,"share":14,"score":34.7},{"name":"成员08","group":"运营二组","instock":42,"contact":189,"calls":208,"share":17,"score":33.3}],"table":{"columns":["入库数","联系客户数","跟进记录数","共享客户数","拜访联系","微信联系","通话次数","通话时长","呼出次数","呼出时长","本月新增归属","当日联系","跨日联系","首联超过10分钟","首联超过30分钟","沟通阶段","到访阶段"],"count":12,"total":[870,2270,2541,340,113,654,1924,96224,1421,52512,654,435,219,266,145,335,62],"average":[72.5,189.2,211.8,28.3,9.4,54.5,160.3,8018.7,118.4,4376.0,54.5,36.2,18.2,22.2,12.1,27.9,5.2],"group_rows":[{"group":"运营一组","name":"6 人合计","values":[501,1237,1509,170,73,322,912,43655,725,25535,375,251,124,156,92,194,38],"marks":["max","max","max","max","max","min","min","min","max","min","max","max","max","max","max","max","max"]},{"group":"运营二组","name":"6 人合计","values":[369,1033,1032,170,40,332,1012,52569,696,26977,279,184,95,110,53,141,24],"marks":["min","min","min","max","min","max","max","max","min","max","min","min","min","min","min","min","min"]}],"persons":[{"group":"运营一组","name":"成员01","values":[44,138,145,34,14,47,105,5250,84,3192,31,20,11,15,8,14,4],"marks":["","","","","","","","","","","","","","","","",""]},{"group":"运营一组","name":"成员02","values":[107,274,361,21,4,87,212,10388,148,4884,71,46,25,33,16,44,7],"marks":["","max","max","","min","max","","","","","","","","","","",""]},{"group":"运营一组","name":"成员03","values":[128,175,237,38,16,43,120,6480,104,4264,98,69,29,40,26,56,8],"marks":["max","","","","max","","","","","","max","max","max","max","max","max","max"]},{"group":"运营一组","name":"成员04","values":[71,261,246,27,8,48,186,8556,158,5056,56,37,19,22,14,33,7],"marks":["","","","","","","","","","","","","","","","",""]},{"group":"运营一组","name":"成员05","values":[46,205,284,42,15,43,164,8856,148,4736,39,28,11,17,10,14,4],"marks":["","","","max","","","","","","","","","","","","",""]},{"group":"运营一组","name":"成员06","values":[105,184,236,8,16,54,125,4125,83,3403,80,51,29,29,18,33,8],"marks":["","","","min","max","","","","","","","","max","","","","max"]},{"group":"运营二组","name":"成员07","values":[99,239,269,36,7,52,263,15254,185,7030,75,47,28,30,14,37,5],"marks":["","","","","","","max","max","max","max","","","","","","",""]},{"group":"运营二组","name":"成员08","values":[42,189,176,17,5,60,208,9568,127,3683,32,19,13,10,5,14,1],"marks":["","","","","","","","","","","","","","min","min","","min"]},{"group":"运营二组","name":"成员09","values":[80,113,108,41,7,70,101,3737,60,2700,50,36,14,21,10,27,6],"marks":["","min","min","","","","","min","min","min","","","","","","",""]},{"group":"运营二组","name":"成员10","values":[44,116,132,35,10,42,92,4508,68,2924,37,24,13,13,7,20,3],"marks":["","","","","","","min","","","","","","","","","",""]},{"group":"运营二组","name":"成员11","values":[33,205,178,27,5,70,181,10317,144,6048,23,17,6,12,6,9,3],"marks":["min","","","","","","","","","","min","min","min","","","min",""]},{"group":"运营二组","name":"成员12","values":[71,171,169,14,6,38,167,9185,112,4592,62,41,21,24,11,34,6],"marks":["","","","","","min","","","","","","","","","","",""]}]}}</script>
+<script src="../static/ec_mobile.js"></script>
+</body>
+</html>

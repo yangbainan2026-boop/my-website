@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>有你互动EC系统数据大屏</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../static/theme-dark.css">
+  <link rel="stylesheet" href="../static/ec_screen.css">
+  <link rel="stylesheet" href="../static/empty_state.css">
+  <link rel="stylesheet" href="../static/preview.css">
+</head>
+<body>
+<div class="empty-mask" id="emptyMask" hidden>
+  <div class="empty-box">
+    <b>暂无数据</b>
+    <span>演示数据暂不可用</span>
+  </div>
+</div>
+<div id="screen">
+  <div class="bg-deco bg-deco-1"></div>
+  <div class="bg-deco bg-deco-2"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo"><i></i><i></i><i></i></div>
+      <div class="brand-text">
+        <h1>有你互动EC系统数据大屏</h1>
+        <p>EC 作业指标公开演示</p>
+      </div>
+    </div>
+    <div class="top-meta"><span class="preview-badge">演示数据</span><nav class="preview-nav" aria-label="看板视图"><a href="../ec-board/">综合看板</a><a href="../ec-screen/" aria-current="page">深色大屏</a><a href="../ec-mobile/">手机版</a></nav><span id="screenClock">--:--:--</span></div>
+  </header>
+
+  <section class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-icon" data-icon="0"></div>
+      <div class="kpi-body">
+        <span class="kpi-label">总入库数</span>
+        <div class="kpi-num"><span class="num" data-key="instock" data-fmt="int">0</span><small>人</small></div>
+        <span class="kpi-foot">TOTAL IN-STOCK · 本月累计</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" data-icon="1"></div>
+      <div class="kpi-body">
+        <span class="kpi-label">联系客户数</span>
+        <div class="kpi-num"><span class="num" data-key="contact" data-fmt="int">0</span><small>人</small></div>
+        <span class="kpi-foot">CONTACTED · 本月累计</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" data-icon="2"></div>
+      <div class="kpi-body">
+        <span class="kpi-label">跟进记录数</span>
+        <div class="kpi-num"><span class="num" data-key="follow" data-fmt="int">0</span><small>条</small></div>
+        <span class="kpi-foot">FOLLOW-UPS · 本月累计</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" data-icon="3"></div>
+      <div class="kpi-body">
+        <span class="kpi-label">通话次数</span>
+        <div class="kpi-num"><span class="num" data-key="calls" data-fmt="int">0</span><small>次</small></div>
+        <span class="kpi-foot">CALLS · 本月累计</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" data-icon="4"></div>
+      <div class="kpi-body">
+        <span class="kpi-label">通话时长</span>
+        <div class="kpi-num"><span class="num" data-key="calltime" data-fmt="int">0</span><small>原值</small></div>
+        <span class="kpi-foot">CALL DURATION · 接口原值</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 当前统计期整体数据描述（每个数据一句话）+ 各组人员名单 -->
+  <section class="ec-insight">
+    <div class="insight-lines" id="insightLines"></div>
+    <div class="group-roster" id="groupRoster"></div>
+  </section>
+
+  <!-- 入库渠道分析：全企业口径，不与各组关联 -->
+  <section class="ec-channel">
+    <div class="channel-title"><b>入库渠道分析</b><span id="channelNote"></span></div>
+    <div class="channel-list" id="channelList"></div>
+  </section>
+
+  <main class="grid">
+    <aside class="col">
+      <section class="card">
+        <div class="card-head"><h2>两组核心指标对比</h2><span>GROUP COMPARE</span></div>
+        <div class="chart" id="compareChart"></div>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>个人入库数 TOP 8</h2><span>TOP IN-STOCK</span></div>
+        <div class="chart" id="topChart"></div>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>联系方式构成</h2><span>CONTACT MIX</span></div>
+        <div class="chart" id="mixChart"></div>
+      </section>
+    </aside>
+
+    <section class="col center">
+      <section class="card map-card">
+        <div class="card-head"><h2>两组全指标能力雷达</h2><span>17 METRICS RADAR</span></div>
+        <div class="chart" id="radarChart"></div>
+      </section>
+      <section class="card trend-card">
+        <div class="card-head"><h2>成员活跃度分布</h2><span>STAFF ACTIVITY</span></div>
+        <div class="chart" id="activityChart"></div>
+      </section>
+    </section>
+
+    <aside class="col">
+      <section class="card">
+        <div class="card-head"><h2>客户阶段漏斗</h2><span>STAGE FUNNEL</span></div>
+        <div class="chart" id="funnelChart"></div>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>两组规模占比</h2><span>GROUP SHARE</span></div>
+        <div class="chart" id="shareChart"></div>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>成员指标明细</h2><span>STAFF DETAIL</span></div>
+        <div class="staff-head"><span>姓名</span><span>组别</span><span>入库</span><span>联系</span><span>通话</span></div>
+        <div class="staff-scroll" id="staffScroll"><div id="staffList"></div></div>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <span>演示统计期 4/1–4/30 · <b id="peopleInfo"></b></span>
+    <span>红底＝列内最高 · 绿底＝列内最低 · 悬停暂停轮播</span>
+  </footer>
+</div>
+
+<script type="application/json" id="previewData">{"kpi":{"instock":870,"contact":2270,"follow":2541,"calls":1924,"calltime":96224,"staff":12},"groups":["运营一组","运营二组"],"people":{"运营一组":6,"运营二组":6},"compare":{"items":["入库数","联系客户数","跟进记录数","通话次数","呼出次数","共享客户数"],"series":[{"name":"运营一组","values":[501,1237,1509,912,725,170]},{"name":"运营二组","values":[369,1033,1032,1012,696,170]}]},"radar":{"indicators":[{"name":"入库数","max":501},{"name":"联系客户数","max":1237},{"name":"跟进记录数","max":1509},{"name":"共享客户数","max":170},{"name":"拜访联系","max":73},{"name":"微信联系","max":332},{"name":"通话次数","max":1012},{"name":"通话时长","max":52569},{"name":"呼出次数","max":725},{"name":"呼出时长","max":26977},{"name":"本月新增归属","max":375},{"name":"当日联系","max":251},{"name":"跨日联系","max":124},{"name":"首联超过10分钟","max":156},{"name":"首联超过30分钟","max":92},{"name":"沟通阶段","max":194},{"name":"到访阶段","max":38}],"series":[{"name":"运营一组","values":[501,1237,1509,170,73,322,912,43655,725,25535,375,251,124,156,92,194,38]},{"name":"运营二组","values":[369,1033,1032,170,40,332,1012,52569,696,26977,279,184,95,110,53,141,24]}]},"top_instock":[{"name":"成员05","group":"运营一组","value":46},{"name":"成员04","group":"运营一组","value":71},{"name":"成员12","group":"运营二组","value":71},{"name":"成员09","group":"运营二组","value":80},{"name":"成员07","group":"运营二组","value":99},{"name":"成员06","group":"运营一组","value":105},{"name":"成员02","group":"运营一组","value":107},{"name":"成员03","group":"运营一组","value":128}],"contact_mix":[{"name":"通话次数","value":1924},{"name":"呼出次数","value":1421},{"name":"微信联系","value":654},{"name":"拜访联系","value":113}],"funnel":[{"name":"本月新增归属","value":654},{"name":"当日联系","value":435},{"name":"首联超过10分钟","value":266},{"name":"首联超过30分钟","value":145},{"name":"到访阶段","value":62}],"group_share":[{"name":"运营一组","people":6,"instock":501,"calls":912},{"name":"运营二组","people":6,"instock":369,"calls":1012}],"activity":{"names":["成员02","成员04","成员07","成员05","成员11","成员08","成员06","成员03","成员12","成员01","成员10","成员09"],"contact":[274,261,239,205,205,189,184,175,171,138,116,113],"calls":[212,186,263,164,181,208,125,120,167,105,92,101]},"staff":[{"name":"成员01","group":"运营一组","instock":44,"contact":138,"calls":105,"marks":{"instock":"","contact":"","calls":""}},{"name":"成员02","group":"运营一组","instock":107,"contact":274,"calls":212,"marks":{"instock":"","contact":"max","calls":""}},{"name":"成员03","group":"运营一组","instock":128,"contact":175,"calls":120,"marks":{"instock":"max","contact":"","calls":""}},{"name":"成员04","group":"运营一组","instock":71,"contact":261,"calls":186,"marks":{"instock":"","contact":"","calls":""}},{"name":"成员05","group":"运营一组","instock":46,"contact":205,"calls":164,"marks":{"instock":"","contact":"","calls":""}},{"name":"成员06","group":"运营一组","instock":105,"contact":184,"calls":125,"marks":{"instock":"","contact":"","calls":""}},{"name":"成员07","group":"运营二组","instock":99,"contact":239,"calls":263,"marks":{"instock":"","contact":"","calls":"max"}},{"name":"成员08","group":"运营二组","instock":42,"contact":189,"calls":208,"marks":{"instock":"","contact":"","calls":""}},{"name":"成员09","group":"运营二组","instock":80,"contact":113,"calls":101,"marks":{"instock":"","contact":"min","calls":""}},{"name":"成员10","group":"运营二组","instock":44,"contact":116,"calls":92,"marks":{"instock":"","contact":"","calls":"min"}},{"name":"成员11","group":"运营二组","instock":33,"contact":205,"calls":181,"marks":{"instock":"min","contact":"","calls":""}},{"name":"成员12","group":"运营二组","instock":71,"contact":171,"calls":167,"marks":{"instock":"","contact":"","calls":""}}],"period":"4/1–4/30","roster":{"运营一组":["成员01","成员02","成员03","成员04","成员05","成员06"],"运营二组":["成员07","成员08","成员09","成员10","成员11","成员12"]},"insights":[{"text":"统计期 4/1–4/30：两组共 12 人参与系统作业。","highlight":false},{"text":"累计入库 870 人，运营一组占 57.6%。","highlight":false},{"text":"联系客户 2,270 人次，人均 189.2 人。","highlight":false},{"text":"跟进记录 2,541 条，人均 211.8 条。","highlight":false},{"text":"通话 1,924 次，人均 160.3 次。","highlight":false},{"text":"通话总时长 96,224，单次平均 50.0。","highlight":true},{"text":"呼出 1,421 次 / 52,512，单次平均 37.0。","highlight":true},{"text":"本月新增归属 654 人，到访阶段 62 人。","highlight":false}],"avg_duration":{"call_overall":50.0,"out_overall":37.0,"group_call":{"运营一组":47.9,"运营二组":51.9},"group_out":{"运营一组":35.2,"运营二组":38.8},"staff_call":[50.0,49.0,54.0,46.0,54.0,33.0,58.0,46.0,37.0,49.0,57.0,55.0]},"channels":{"total":917,"count":6,"items":[{"name":"微信好友","value":279,"ratio":30.4},{"name":"线下活动","value":194,"ratio":21.2},{"name":"抖音","value":153,"ratio":16.7},{"name":"转介绍","value":136,"ratio":14.8},{"name":"视频号","value":97,"ratio":10.6},{"name":"搜索推广","value":58,"ratio":6.3}],"note":"演示渠道分布"}}</script>
+<script src="../static/echarts.min.js"></script>
+<script src="../static/ec_screen.js"></script>
+</body>
+</html>

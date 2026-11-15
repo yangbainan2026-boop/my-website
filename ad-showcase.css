@@ -1,0 +1,303 @@
+.showcase-shell {
+    width: min(var(--content-width, 1440px), calc(100% - 2 * var(--gutter, 24px)));
+    margin-inline: auto;
+  }
+
+  .showcase-gallery {
+    padding: clamp(48px, 7vw, 100px) 0;
+    background: #f3f5f6;
+    color: #18212c;
+  }
+
+  .showcase-kicker {
+    margin: 0 0 10px;
+    color: #59636e;
+    font-size: 13px;
+    font-weight: 650;
+    letter-spacing: .12em;
+  }
+
+  .showcase-title {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 720;
+    line-height: 1.14;
+    letter-spacing: -.04em;
+  }
+
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(14px, 1.7vw, 26px);
+    margin-top: clamp(24px, 3.2vw, 42px);
+  }
+
+  .showcase-case {
+    min-width: 0;
+  }
+
+  .showcase-play {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    background: #101722;
+    cursor: pointer;
+  }
+
+  .showcase-play img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .showcase-play::after {
+    position: absolute;
+    inset: 46% 0 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, .46));
+    pointer-events: none;
+    content: "";
+  }
+
+  .showcase-play-icon {
+    position: absolute;
+    z-index: 1;
+    bottom: clamp(9px, 1.2vw, 16px);
+    left: clamp(9px, 1.2vw, 16px);
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #ffffffb3;
+    border-radius: 50%;
+    background: #101722b3;
+    color: white;
+    transition: background .18s ease;
+  }
+
+  .showcase-play:hover .showcase-play-icon {
+    background: #1f2b3b;
+  }
+
+  .showcase-play-icon::before {
+    display: block;
+    margin-left: 3px;
+    border: solid transparent;
+    border-width: 7px 0 7px 10px;
+    border-left-color: currentColor;
+    content: "";
+  }
+
+  .showcase-duration {
+    position: absolute;
+    z-index: 1;
+    right: clamp(9px, 1.2vw, 16px);
+    bottom: clamp(12px, 1.2vw, 16px);
+    border-radius: 4px;
+    padding: 3px 7px;
+    background: #101722de;
+    color: white;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .showcase-case-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 10px;
+    margin-top: 10px;
+  }
+
+  .showcase-case-name {
+    margin: 0;
+    font-size: clamp(15px, 1.7vw, 22px);
+    font-weight: 680;
+    line-height: 1.35;
+  }
+
+  .showcase-use-reference {
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #135087;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+
+  .showcase-use-reference:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .showcase-contact {
+    background: #18212c;
+    color: #fff;
+  }
+
+  .showcase-contact .showcase-shell {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px 50px;
+    padding-block: clamp(38px, 6vw, 80px);
+  }
+
+  .showcase-contact .showcase-kicker {
+    color: #bbc7d3;
+  }
+
+  .showcase-contact-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    min-width: 0;
+  }
+
+  .showcase-contact-number {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: white;
+    font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    font-size: clamp(26px, 4vw, 43px);
+    font-weight: 620;
+    line-height: 1;
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .showcase-contact-number:hover {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+
+  .showcase-copy {
+    min-height: 44px;
+    padding: 8px 14px;
+    border: 1px solid #9cabbc;
+    border-radius: 7px;
+    background: transparent;
+    color: white;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .showcase-copy:hover {
+    background: #263446;
+  }
+
+  .showcase-copy-status {
+    flex-basis: 100%;
+    color: #e3eaf1;
+    font-size: 13px;
+  }
+
+  .showcase-copy-status:empty {
+    display: none;
+  }
+
+  .showcase-gallery button:focus-visible,
+  .showcase-contact :is(button, a):focus-visible,
+  .showcase-dialog button:focus-visible {
+    outline: 3px solid #ff883a;
+    outline-offset: 4px;
+  }
+
+  .showcase-footer {
+    background: #f4f4f4;
+  }
+
+  .showcase-footer img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .showcase-dialog {
+    width: min(92vw, 520px);
+    max-height: calc(100dvh - 24px);
+    margin: auto;
+    padding: 0;
+    overflow: auto;
+    border: 1px solid #495261;
+    border-radius: 13px;
+    background: #18212c;
+    color: white;
+  }
+
+  .showcase-dialog::backdrop {
+    background: #101722d9;
+  }
+
+  .showcase-dialog-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 8px clamp(12px, 3vw, 22px);
+  }
+
+  .showcase-dialog-title {
+    margin: 0;
+    font-size: clamp(17px, 3vw, 22px);
+    font-weight: 650;
+  }
+
+  .showcase-dialog-close {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: white;
+    font: inherit;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .showcase-dialog-close:hover {
+    background: #293749;
+  }
+
+  .showcase-dialog video {
+    display: block;
+    width: 100%;
+    height: min(74dvh, 690px);
+    background: #0b0e13;
+  }
+
+  .showcase-media-error {
+    margin: 0;
+    padding: 13px 16px;
+    color: #fff0e9;
+    font-size: 14px;
+  }
+
+  @media (max-width: 800px) {
+    .showcase-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 16px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .showcase-contact-details {
+      display: grid;
+      justify-items: start;
+    }
+  }

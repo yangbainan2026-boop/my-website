@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#202731">
+  <title>预演台｜产品短视频预演</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #151616;
+      --muted: #686a6d;
+      --line: #e2e3e1;
+      --paper: #fbfbfa;
+      --white: #fff;
+      --black: #111212;
+      --accent: #ff6900;
+      --red: var(--accent);
+      --green: #3c7d62;
+      --radius: 5px;
+      --content-width: 1440px;
+      --gutter: clamp(18px, 4.6vw, 76px);
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    button, textarea, input { font: inherit; }
+    button { color: inherit; }
+    a:focus-visible, button:focus-visible, textarea:focus-visible, .upload-zone:focus-visible {
+      outline: 2px solid var(--red);
+      outline-offset: 3px;
+    }
+
+    .topbar { border-bottom: 1px solid #ffffff24; }
+    .topbar-inner, .hero-inner, .page {
+      width: min(var(--content-width), calc(100% - var(--gutter) - var(--gutter)));
+      margin-inline: auto;
+    }
+    .topbar-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      flex: 0 1 auto;
+    }
+    .brand-logo { display: block; width: clamp(110px, 14vw, 190px); max-width: 100%; height: auto; }
+    .main-nav { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 36px); flex: 0 0 auto; }
+    .main-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: #f2f4f7;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .main-nav a:hover { color: #ffad78; }
+
+    .hero {
+      --hero-accent: #ffad78;
+      background: radial-gradient(ellipse at 73% 15%, #526071 0%, #303a47 39%, #181d25 80%);
+      color: #f7f7f4;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.38fr);
+      align-items: center;
+      gap: clamp(26px, 3.1vw, 52px);
+      padding-block: clamp(40px, 4.2vw, 70px);
+    }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: #e5e9ee;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .hero-kicker::before {
+      width: 18px;
+      height: 2px;
+      background: var(--hero-accent);
+      content: "";
+    }
+    .hero-title {
+      margin: 0;
+      font-size: clamp(32px, 4.35vw, 68px);
+      font-weight: 600;
+      line-height: 1.16;
+      letter-spacing: -.035em;
+    }
+    .hero-title span { display: block; }
+    .headline-accent { color: var(--hero-accent); }
+    .hero-description {
+      max-width: 25em;
+      margin: 22px 0 28px;
+      color: #e0e4ea;
+      font-size: clamp(14px, 1.23vw, 17px);
+      line-height: 1.75;
+      text-wrap: pretty;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 21px;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 6px;
+      background: var(--hero-accent);
+      color: #171b21;
+      font-size: 14px;
+      font-weight: 650;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .hero-cta:hover { background: #ffc49f; transform: translateY(-2px); }
+    .hero-cta span { font-size: 17px; }
+
+    .case-showcase { min-width: 0; margin: 0; }
+    .device-set {
+      position: relative;
+      container-type: inline-size;
+      aspect-ratio: 1.37;
+      isolation: isolate;
+    }
+    .device-set::before {
+      position: absolute;
+      inset: auto 4% 0 8%;
+      height: 20%;
+      background: radial-gradient(ellipse, rgba(0,0,0,.54), transparent 69%);
+      content: "";
+    }
+    .device {
+      --rim: clamp(3px, .7cqw, 7px);
+      --curve: clamp(10px, 3cqw, 28px);
+      --screen-shape: 9 / 16;
+      position: absolute;
+      padding: var(--rim);
+      border: 1px solid #89919b;
+      border-radius: var(--curve);
+      background: linear-gradient(140deg, #383e46, #11151a 35%, #0c0e11 76%, #51565f);
+      box-shadow: 0 1.6cqw 3.8cqw rgba(0,0,0,.52), inset 0 0 0 1px #13161a;
+    }
+    .device-screen {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      aspect-ratio: var(--screen-shape);
+      overflow: hidden;
+      border-radius: calc(var(--curve) - var(--rim));
+      background: #0c1015;
+    }
+    .device-screen::after {
+      position: absolute;
+      z-index: 1;
+      top: 2%;
+      left: 50%;
+      width: 16%;
+      height: 2%;
+      transform: translateX(-50%);
+      border-radius: 50px;
+      background: #0c1015;
+      content: "";
+    }
+    .device-frame {
+      position: relative;
+      flex: none;
+      width: 100%;
+      aspect-ratio: var(--format);
+      overflow: hidden;
+    }
+    .device-frame img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .device-main {
+      --format: 9 / 16;
+      z-index: 3;
+      top: 4%;
+      left: 33%;
+      width: 34%;
+      transform: rotate(-4deg);
+    }
+    .device-wide {
+      --screen-shape: 16 / 9;
+      --format: 16 / 9;
+      z-index: 4;
+      top: 55%;
+      left: 45%;
+      width: 51.5%;
+      transform: rotate(7deg);
+    }
+    .device-wide .device-screen::after {
+      top: 50%;
+      left: 1.2%;
+      width: 1.1%;
+      height: 18%;
+      transform: translateY(-50%);
+    }
+    .device-portrait {
+      --format: 3 / 4;
+      z-index: 1;
+      top: 13%;
+      left: 5.6%;
+      width: 28%;
+      transform: rotate(-10deg);
+    }
+    .device-square {
+      --screen-shape: 1;
+      --format: 1;
+      z-index: 2;
+      top: 12%;
+      left: 68%;
+      width: 28%;
+      transform: rotate(9deg);
+    }
+    .device-square .device-frame {
+      background: #4b6065;
+    }
+    .device-square .device-frame::before,
+    .device-square .device-frame::after {
+      position: absolute;
+      inset-block: 0;
+      width: 12.5%;
+      background-image: url("assets/case-fan-titleless.webp");
+      background-repeat: no-repeat;
+      /* Extend the outermost 8 px of each edge to fill the wider square. */
+      background-size: 13500% 133.3333%;
+      transform: scaleX(-1);
+      content: "";
+    }
+    .device-square .device-frame::before {
+      left: 0;
+      background-position: left center;
+    }
+    .device-square .device-frame::after {
+      right: 0;
+      background-position: right center;
+    }
+    .device-square .device-frame img {
+      /* The original has 240 px of matte above and below the 1080 × 1440 artwork. */
+      inset: -16.6667% 12.5%;
+      width: 75%;
+      height: 133.3333%;
+    }
+    .device-square .device-screen::after {
+      display: none;
+    }
+    .case-formats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin: 15px 0 0;
+      padding: 14px 0 0;
+      border-top: 1px solid rgba(230,237,245,.22);
+      list-style: none;
+    }
+    .case-formats li {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1px 8px;
+      padding: 0 4px;
+      text-align: center;
+    }
+    .case-formats li + li { border-inline-start: 1px solid rgba(230,237,245,.18); }
+    .case-formats b { color: #f5f5f3; font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .case-formats span { color: #dae0e7; font-size: 12px; white-space: nowrap; }
+
+    .page {
+      padding: clamp(32px, 4.7vw, 68px) 0 56px;
+    }
+    @media (max-width: 800px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+      .hero-title { font-size: clamp(30px, 8.6vw, 56px); }
+      .case-showcase { width: min(100%, 620px); margin-inline: auto; }
+    }
+    @media (max-width: 680px) {
+      .topbar-inner { min-height: 60px; }
+      .main-nav a { font-size: 12px; }
+      .main-nav { gap: 12px; }
+      .hero-inner { padding-block: 32px 24px; }
+      .hero-kicker { margin-bottom: 12px; }
+      .hero-description { margin-block: 13px 19px; }
+      .case-formats { margin-top: 11px; padding-top: 11px; }
+      .case-formats li { flex-direction: column; align-items: center; gap: 0; }
+      .case-formats b { font-size: 14px; }
+      .case-formats span { font-size: 11px; }
+    }
+    @media (max-width: 380px) {
+      .brand-logo { width: 95px; }
+      .main-nav { gap: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="ad-workbench.css">
+  <link rel="stylesheet" href="ad-showcase.css">
+</head>
+<body id="top">
+  <main>
+    <section class="hero" aria-labelledby="heroTitle">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <a class="brand" href="#top" aria-label="返回预演台顶部">
+            <img class="brand-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAACWCAMAAAA1xQYDAAADAFBMVEVMaXH///////8AAZH////////////////+/v7///8A//wlUaf///8RfLwB9+0Vfr4wOaExOqIA//3///////////////////8B9+7///8B9u3////+/v7///////////8Avq////////////////////////////////////////////////////////////////////////////////////8Vfr3///////////8Vf7/////+/v7///////////////////////////////////////////////8gWK////////////////////////////////////////////////////////////////////////////////////////////////////////////8wOaIVgcH///////////////////////////////////////////8wOaL///////8xOqT///////////////8Uf7////////8wOaL///8A6+L///////8Sf7////8Ufbz///8wOqP///////8xOqMUfr4xOKMUf74UgMAA+O////////8UgMAwOaIUfr4B+O/+/v4Ufr4vOaIxO6UA+ewTfr4B+O/+/v4B+PAwOaEA9+0wOaL///8wOKMwOaEUfr4Sf78B+PAwOaIA9+4A+O4sN6MA9+4sQqYxOqMA9+////8A9uwA9+4Tf78wOaIA9+8wOaIvOaIUfr0wOKEwOKEA9+0A+PAA9u0A+e4Tfr8B+vIB+vQUfr4Ufr4B+PAUfr4Ufr4Uf78Ufr4Tfr4A9+0wOaIA9+4wOaEA+O8A+O8B+O8A+fEA9+8Uf74Uf74B+PATf74A+O8A9+4wOaITfr4A9eswOaH+/v4A9u4B9+8Tf74UgMAvOKEUfr0wOaIA+O8A+PAUfr0VgsIE4+YeZ7X///8Vf74xOqIB9+4B//sVf74Wh8oyO6YVhMUVgsMzPKo0PawB//0WhcgyPKg0Pq0B//cB//8B+vEB/PMB/PUWiMx7CO3AAAAA6nRSTlMA+wQB/QEC/vwDAQP6Av39/P4D9fEFIgb+3vwT78HrjAMkXicMeR5XSOmBO2Q+84O/ChoQ7UL7Gaz4/djlROfbxLDHCLhR0aBABrPNdeJN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" width="600" height="150" alt="有你互动 · INTERACT WITH YOU">
+          </a>
+          <nav class="main-nav" aria-label="主导航">
+            <a href="#cases">案例展示</a>
+            <a href="#workspace">服务预览</a>
+            <a href="#contact">商务联系</a>
+          </nav>
+        </div>
+      </header>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="hero-kicker">AIGC 短视频广告</p>
+          <h1 class="hero-title" id="heroTitle"><span>给我产品图片，</span><span class="headline-accent">还你一条广告！</span></h1>
+          <p class="hero-description">上传一张产品照片，先预演广告的构图、光影和镜头节奏。</p>
+          <a class="hero-cta" href="#workspace">开始预演 <span aria-hidden="true">↓</span></a>
+        </div>
+
+        <figure class="case-showcase" id="portfolio" aria-labelledby="caseCaption">
+          <div class="device-set">
+            <div class="device device-main" data-case-ratio="9:16">
+              <div class="device-screen"><div class="device-frame">
+                <img src="assets/ad-showcase-bar.webp" width="640" height="853" alt="小酒吧演唱封面，歌手手持麦克风，下方写着慌啥子嘛，都是最好的安排" fetchpriority="high">
+              </div></div>
+            </div>
+            <div class="device device-wide" data-case-ratio="16:9">
+              <div class="device-screen"><div class="device-frame">
+                <img src="assets/case-offroad-strip.webp" width="1050" height="445" alt="越野封面中的三格分镜：人物特写、车身正面和人物全身">
+              </div></div>
+            </div>
+            <div class="device device-portrait" data-case-ratio="3:4">
+              <div class="device-screen"><div class="device-frame">
+                <img src="assets/case-portrait-titleless.webp" width="1086" height="1448" alt="白衣人物坐在有你互动的主页展示上">
+              </div></div>
+            </div>
+            <div class="device device-square" data-case-ratio="1:1">
+              <div class="device-screen"><div class="device-frame">
+                <img src="assets/case-fan-titleless.webp" width="1080" height="1920" alt="创意变装封面，西装人物在风扇下举起遥控器，底部有三个造型">
+              </div></div>
+            </div>
+          </div>
+          <figcaption id="caseCaption">
+            <ul class="case-formats">
+              <li><b>9:16</b><span>小酒吧演唱</span></li>
+              <li><b>16:9</b><span>越野分镜</span></li>
+              <li><b>3:4</b><span>品牌主页</span></li>
+              <li><b>1:1</b><span>创意变装</span></li>
+            </ul>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="cases" class="showcase-gallery" aria-labelledby="showcase-heading">
+      <div class="showcase-shell">
+        <p class="showcase-kicker">有你互动出品</p>
+        <h2 class="showcase-title" id="showcase-heading">广告案例</h2>
+        <div class="showcase-grid">
+          <article class="showcase-case">
+            <button type="button" class="showcase-play" aria-label="播放《老板拼了》" aria-haspopup="dialog" data-video="assets/ad-showcase-fan.mp4">
+              <img src="assets/ad-showcase-fan.webp" width="640" height="1138" loading="lazy" alt="创意风扇变装视频封面">
+              <span class="showcase-play-icon" aria-hidden="true"></span>
+              <span class="showcase-duration">0:21</span>
+            </button>
+            <div class="showcase-case-meta">
+              <h3 class="showcase-case-name">老板拼了</h3>
+              <button type="button" class="showcase-use-reference" data-use-reference="case-1" aria-label="将《老板拼了》作为对标">作为对标</button>
+            </div>
+          </article>
+          <article class="showcase-case">
+            <button type="button" class="showcase-play" aria-label="播放《小酒吧演唱》" aria-haspopup="dialog" data-video="assets/ad-showcase-bar.mp4">
+              <img src="assets/ad-showcase-bar.webp" width="640" height="853" loading="lazy" alt="小酒吧演唱视频封面">
+              <span class="showcase-play-icon" aria-hidden="true"></span>
+              <span class="showcase-duration">0:35</span>
+            </button>
+            <div class="showcase-case-meta">
+              <h3 class="showcase-case-name">小酒吧演唱</h3>
+              <button type="button" class="showcase-use-reference" data-use-reference="case-2" aria-label="将《小酒吧演唱》作为对标">作为对标</button>
+            </div>
+          </article>
+          <article class="showcase-case">
+            <button type="button" class="showcase-play" aria-label="播放《越野老炮时刻》" aria-haspopup="dialog" data-video="assets/ad-showcase-offroad.mp4">
+              <img src="assets/ad-showcase-offroad.webp" width="640" height="853" loading="lazy" alt="越野老炮时刻视频封面">
+              <span class="showcase-play-icon" aria-hidden="true"></span>
+              <span class="showcase-duration">0:13</span>
+            </button>
+            <div class="showcase-case-meta">
+              <h3 class="showcase-case-name">越野老炮时刻</h3>
+              <button type="button" class="showcase-use-reference" data-use-reference="case-3" aria-label="将《越野老炮时刻》作为对标">作为对标</button>
+            </div>
+          </article>
+          <article class="showcase-case">
+            <button type="button" class="showcase-play" aria-label="播放《让产品更出圈》" aria-haspopup="dialog" data-video="assets/ad-showcase-brand.mp4">
+              <img src="assets/ad-showcase-brand.webp" width="640" height="1138" loading="lazy" alt="让产品更出圈视频封面">
+              <span class="showcase-play-icon" aria-hidden="true"></span>
+              <span class="showcase-duration">0:20</span>
+            </button>
+            <div class="showcase-case-meta">
+              <h3 class="showcase-case-name">让产品更出圈</h3>
+              <button type="button" class="showcase-use-reference" data-use-reference="case-4" aria-label="将《让产品更出圈》作为对标">作为对标</button>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <dialog id="showcase-player" class="showcase-dialog" aria-labelledby="showcase-player-title">
+        <div class="showcase-dialog-bar">
+          <h3 class="showcase-dialog-title" id="showcase-player-title">案例播放</h3>
+          <form method="dialog">
+            <button type="submit" class="showcase-dialog-close" aria-label="关闭视频" autofocus>×</button>
+          </form>
+        </div>
+        <video id="showcase-video" controls playsinline preload="none" aria-labelledby="showcase-player-title"></video>
+        <p class="showcase-media-error" id="showcase-media-error" role="status" hidden>视频加载失败，请重新打开案例。</p>
+      </dialog>
+    </section>
+    <section class="page studio" id="workspace" aria-labelledby="workspaceTitle">
+      <div class="studio-heading">
+        <h2 id="workspaceTitle">广告服务预览</h2>
+        <p>填写品牌与用途，预览镜头效果，带着简报联系制作。</p>
+      </div>
+      <div class="studio-layout">
+        <form class="studio-form" id="adForm" novalidate>
+          <h3>你的广告需求</h3>
+          <fieldset class="studio-fieldset" id="studioFields">
+            <div class="studio-row">
+              <div class="studio-field">
+                <label class="studio-label" for="brandName">品牌 / 产品名</label>
+                <input class="studio-select" id="brandName" type="text" maxlength="80" placeholder="填写品牌或产品名称">
+              </div>
+              <div class="studio-field">
+                <label class="studio-label" for="videoUse">视频用途</label>
+                <select class="studio-select" id="videoUse">
+                  <option value="">选择用途</option>
+                  <option value="商品推广">商品推广</option>
+                  <option value="品牌宣传">品牌宣传</option>
+                  <option value="新品发布">新品发布</option>
+                  <option value="社媒内容">社媒内容</option>
+                  <option value="其他">其他</option>
+                </select>
+              </div>
+            </div>
+            <div class="studio-field">
+              <label class="studio-label" for="brandIntro">品牌说明</label>
+              <textarea class="studio-prompt" id="brandIntro" maxlength="500" placeholder="介绍产品卖点、目标受众和广告需要传达的信息。"></textarea>
+            </div>
+            <div class="studio-field">
+              <label class="studio-label" for="replyContact">你的联系方式 <span class="studio-hint">选填</span></label>
+              <input class="studio-select" id="replyContact" type="text" maxlength="100" autocomplete="off" placeholder="手机、微信号或邮箱，用于商务回访">
+            </div>
+            <div class="studio-field">
+              <label class="studio-label" for="photoInput">产品图片</label>
+              <div class="studio-file-card" id="uploadZone">
+                <img id="thumbPhoto" src="assets/workbench-sample.webp" width="62" height="62" alt="">
+                <div>
+                  <strong class="studio-filename" id="fileName">示例素材 · 越野产品图</strong>
+                  <small class="studio-file-details" id="fileMeta">JPG、PNG 或 WebP · 20 MB 以内</small>
+                </div>
+                <span class="studio-file-action" aria-hidden="true">上传图片 ↗</span>
+                <input class="studio-file-input" id="photoInput" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="fileMeta">
+              </div>
+              <button class="studio-reset" id="resetPhoto" type="button" hidden>换回示例素材</button>
+            </div>
+            <details class="studio-extra studio-field" id="assetOptions">
+              <summary>添加品牌资产</summary>
+              <label class="studio-label" for="brandAssets">标识、补充图片或参考视频</label>
+              <input class="studio-select studio-asset-input" id="brandAssets" type="file" multiple accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,video/quicktime" aria-describedby="assetHint">
+              <small class="studio-hint" id="assetHint">最多 5 个文件，合计 50 MB。可与简报一起下载。</small>
+              <ul class="studio-assets" id="assetList" aria-label="已添加品牌资产"></ul>
+              <p class="studio-status" id="assetStatus" role="status" hidden></p>
+            </details>
+            <div class="studio-field">
+              <label class="studio-label" for="referenceCase">对标案例</label>
+              <select class="studio-select" id="referenceCase">
+                <option value="">选择一条喜欢的案例</option>
+                <option value="case-1">老板拼了</option>
+                <option value="case-2">小酒吧演唱</option>
+                <option value="case-3">越野老炮时刻</option>
+                <option value="case-4">让产品更出圈</option>
+              </select>
+              <label class="studio-label studio-reference-label" for="referenceUrl">外部参考链接 <span class="studio-hint">选填</span></label>
+              <input class="studio-select" id="referenceUrl" type="url" maxlength="400" placeholder="https://…">
+            </div>
+            <div class="studio-row">
+              <div class="studio-field">
+                <label class="studio-label" for="platform">投放平台</label>
+                <select class="studio-select" id="platform">
+                  <option value="custom">通用 / 自定画幅</option>
+                  <option value="douyin">抖音 · 竖屏</option>
+                  <option value="wechat">视频号 · 竖屏</option>
+                  <option value="kuaishou">快手 · 竖屏</option>
+                  <option value="red">小红书封面 · 竖版</option>
+                  <option value="bilibili">哔哩哔哩 · 横屏</option>
+                  <option value="youtube">YouTube · 横屏</option>
+                  <option value="social">社交动态 · 方形</option>
+                </select>
+              </div>
+              <div class="studio-field">
+                <label class="studio-label" for="resolution">分辨率 <span class="studio-hint">短边</span></label>
+                <select class="studio-select" id="resolution">
+                  <option value="720">720 px</option>
+                  <option value="1080" selected>1080 px</option>
+                  <option value="1440">1440 px</option>
+                </select>
+              </div>
+            </div>
+            <fieldset class="studio-fieldset studio-field">
+              <legend class="studio-label">输出画幅</legend>
+              <div class="studio-ratios">
+                <button type="button" data-ratio="9:16" aria-pressed="true" aria-label="9:16 竖屏">9:16</button>
+                <button type="button" data-ratio="16:9" aria-pressed="false" aria-label="16:9 横屏">16:9</button>
+                <button type="button" data-ratio="3:4" aria-pressed="false" aria-label="3:4 竖版">3:4</button>
+                <button type="button" data-ratio="1:1" aria-pressed="false" aria-label="1:1 方形">1:1</button>
+              </div>
+            </fieldset>
+            <div class="studio-row">
+              <div class="studio-field">
+                <label class="studio-label" for="model">生成模型</label>
+                <select class="studio-select" id="model" aria-describedby="modelNote">
+                  <option value="local">本地预演</option>
+                  <option value="seedance">Seedance · 待接入</option>
+                  <option value="kling">可灵 · 待接入</option>
+                  <option value="veo">Veo · 待接入</option>
+                </select>
+              </div>
+              <div class="studio-field">
+                <label class="studio-label" for="adStyle">画面风格</label>
+                <select class="studio-select" id="adStyle">
+                  <option value="studio">高级棚拍</option>
+                  <option value="lifestyle">生活方式</option>
+                  <option value="keynote">极简发布会</option>
+                </select>
+              </div>
+            </div>
+            <div class="studio-field">
+              <label class="studio-label" for="direction">广告提示词 <span class="studio-hint">选填</span></label>
+              <textarea class="studio-prompt" id="direction" maxlength="500" placeholder="例如：镜头缓慢推进，突出产品细节，暖色光线。"></textarea>
+            </div>
+          </fieldset>
+          <div class="studio-generate-row">
+            <button class="studio-button studio-button--primary" id="generateButton" type="submit">生成视频预演 <span aria-hidden="true">↗</span></button>
+            <button class="studio-button" id="cancelRender" type="button" hidden>取消</button>
+            <button class="studio-button" id="exportSettings" type="button">导出生成设置</button>
+          </div>
+          <p class="studio-status" id="modelNote">本地预演使用图片和运镜模板，可识别「推进」「拉远」「横移」等镜头词。</p>
+          <p class="studio-status" id="statusLine" role="status" aria-live="polite" hidden></p>
+          <a class="studio-reset" id="viewResult" href="#studioOutput" hidden>查看预演成果 ↓</a>
+          <progress class="studio-progress" id="progressBar" value="0" max="1" aria-label="预演进度" hidden></progress>
+          <div class="studio-brief">
+            <div>
+              <strong>商务合作简报</strong>
+              <p class="studio-hint">将品牌、用途、参考素材和投放规格整理给制作团队。</p>
+            </div>
+            <div class="studio-brief-actions">
+              <button class="studio-button" id="downloadBrief" type="button">下载合作简报</button>
+              <a class="studio-button" href="#contact">联系制作 ↗</a>
+            </div>
+            <p class="studio-status" id="briefStatus" role="status" hidden></p>
+          </div>
+        </form>
+
+        <div class="studio-output" id="studioOutput" aria-labelledby="studioOutputTitle">
+          <div class="studio-output-head">
+            <h3 id="studioOutputTitle">成果预览</h3>
+            <span class="studio-preview-meta" id="outputPixels" aria-live="polite">9:16 · 1080 × 1920 px</span>
+          </div>
+          <div class="studio-screen">
+            <div class="studio-frame" id="previewStage" data-ratio="9:16">
+              <img class="studio-image-backdrop" id="sourceBackdrop" src="assets/workbench-sample.webp" width="323" height="400" alt="">
+              <img id="userPhoto" src="assets/workbench-sample.webp" width="323" height="400" alt="越野车产品示例">
+              <video id="previewVideo" playsinline controls preload="metadata" aria-label="生成的视频预演" hidden></video>
+              <span class="studio-state-label" id="previewState">示例产品图</span>
+            </div>
+          </div>
+          <div class="studio-result">
+            <p class="studio-result-note studio-hint" id="resultNote">生成后可在这里播放样片，也可以单独下载封面。</p>
+            <div class="studio-downloads" id="resultActions" hidden>
+              <a class="studio-button studio-button--primary" id="downloadVideo" download hidden>下载样片</a>
+              <a class="studio-button" id="downloadCover" download>下载封面 PNG</a>
+            </div>
+          </div>
+          <div class="studio-platforms">
+            <div class="studio-platform-head">
+              <h3>多平台展示</h3>
+              <p class="studio-hint">查看同一画面在各平台建议画幅里的构图。</p>
+            </div>
+            <div class="studio-platform-grid" role="group" aria-label="切换平台显示">
+              <button type="button" class="studio-platform" data-platform="douyin" aria-pressed="false">
+                <span class="studio-platform-art"><span class="studio-platform-media"><img alt="" data-platform-photo></span><i aria-hidden="true">9:16</i></span>
+                <strong>抖音 / 视频号 / 快手</strong>
+              </button>
+              <button type="button" class="studio-platform" data-platform="bilibili" aria-pressed="false">
+                <span class="studio-platform-art"><span class="studio-platform-media"><img alt="" data-platform-photo></span><i aria-hidden="true">16:9</i></span>
+                <strong>哔哩哔哩 / YouTube</strong>
+              </button>
+              <button type="button" class="studio-platform" data-platform="red" aria-pressed="false">
+                <span class="studio-platform-art"><span class="studio-platform-media"><img alt="" data-platform-photo></span><i aria-hidden="true">3:4</i></span>
+                <strong>小红书封面</strong>
+              </button>
+              <button type="button" class="studio-platform" data-platform="social" aria-pressed="false">
+                <span class="studio-platform-art"><span class="studio-platform-media"><img alt="" data-platform-photo></span><i aria-hidden="true">1:1</i></span>
+                <strong>社交动态</strong>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contact" class="showcase-contact" aria-labelledby="showcase-contact-heading">
+      <div class="showcase-shell">
+        <div>
+          <p class="showcase-kicker">有你互动</p>
+          <h2 class="showcase-title" id="showcase-contact-heading">商务合作</h2>
+        </div>
+        <div class="showcase-contact-details">
+          <a class="showcase-contact-number" href="tel:16770705555" aria-label="拨打商务合作电话 16770705555">167 7070 5555</a>
+          <button type="button" class="showcase-copy" id="showcase-copy">复制号码</button>
+          <span class="showcase-copy-status" id="showcase-copy-status" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      (() => {
+        const gallery = document.getElementById("cases");
+        const dialog = document.getElementById("showcase-player");
+        const video = document.getElementById("showcase-video");
+        const title = document.getElementById("showcase-player-title");
+        const mediaError = document.getElementById("showcase-media-error");
+
+        gallery.querySelectorAll(".showcase-play").forEach((button) => {
+          button.addEventListener("click", () => {
+            const cover = button.querySelector("img");
+            title.textContent = button.closest("article").querySelector("h3").textContent;
+            mediaError.hidden = true;
+            video.poster = cover.currentSrc || cover.src;
+            video.src = button.dataset.video;
+            dialog.showModal();
+          });
+        });
+
+        video.addEventListener("error", () => {
+          if (video.hasAttribute("src")) mediaError.hidden = false;
+        });
+
+        dialog.addEventListener("click", (event) => {
+          if (event.target === dialog) dialog.close();
+        });
+
+        dialog.addEventListener("close", () => {
+          video.pause();
+          video.removeAttribute("src");
+          video.removeAttribute("poster");
+          video.load();
+        });
+
+        const copyButton = document.getElementById("showcase-copy");
+        const status = document.getElementById("showcase-copy-status");
+        const number = document.querySelector(".showcase-contact-number").getAttribute("href").slice(4);
+
+        copyButton.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(number);
+            status.textContent = "号码已复制";
+          } catch {
+            const field = document.createElement("textarea");
+            field.value = number;
+            field.readOnly = true;
+            field.style.cssText = "position:fixed;left:0;top:0;opacity:0";
+            document.body.append(field);
+            field.select();
+            field.setSelectionRange(0, number.length);
+            try {
+              status.textContent = document.execCommand("copy") ? "号码已复制" : "请长按号码复制";
+            } catch {
+              status.textContent = "请长按号码复制";
+            } finally {
+              field.remove();
+              copyButton.focus();
+            }
+          }
+        });
+      })();
+    </script>
+  </main>
+  <footer class="showcase-footer" aria-label="有你互动服务项目">
+    <img src="assets/ad-showcase-footer.webp" width="1776" height="454" loading="lazy" alt="新媒体营销全链路服务商。信任经济 × 产品主义 × 服务至上。全案代理、营销顾问、视频营销、直播卖房、IP 运营、培训陪跑。">
+  </footer>
+  <script src="ad-brief-zip.js" defer></script>
+  <script src="ad-renderer.js" defer></script>
+  <script src="ad-workbench.js" defer></script>
+</body>
+</html>

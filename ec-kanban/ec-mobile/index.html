@@ -28,7 +28,9 @@
   <script>
     const admin = new URLSearchParams(location.search).get('entry') === 'admin';
     document.getElementById('entry-status').textContent = admin ? '正在打开 EC 管理后台…' : '正在打开 EC 综合看板…';
-    location.replace(document.getElementById(admin ? 'ec-admin' : 'ec-board').href);
+    const destination = new URL(document.getElementById(admin ? 'ec-admin' : 'ec-board').href);
+    destination.searchParams.set('refresh', Date.now().toString());
+    location.replace(destination.href);
   </script>
 </body>
 </html>

@@ -26,8 +26,14 @@
     </nav>
   </main>
   <script>
-    const admin = new URLSearchParams(location.search).get('entry') === 'admin';
-    document.getElementById('entry-status').textContent = admin ? '正在打开 EC 管理后台…' : '正在打开 EC 综合看板…';
+    const entry = new URLSearchParams(location.search).get('entry');
+    const admin = entry === 'admin';
+    if (entry === 'reports') {
+      const board = document.getElementById('ec-board');
+      board.href = new URL('/ec-reports', board.href).href;
+      board.textContent = '个人周报 / 月报';
+    }
+    document.getElementById('entry-status').textContent = admin ? '正在打开 EC 管理后台…' : entry === 'reports' ? '正在打开个人周报 / 月报…' : '正在打开 EC 综合看板…';
     location.replace(document.getElementById(admin ? 'ec-admin' : 'ec-board').href);
   </script>
 </body>

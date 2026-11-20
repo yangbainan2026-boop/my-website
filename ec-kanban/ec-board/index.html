@@ -25,7 +25,7 @@
     <nav aria-label="EC 备用入口">
       <a id="ec-board" href="https://ruling-interactive-components-keywords.trycloudflare.com/ec-board">备用：综合看板</a>
       <a id="ec-admin" href="https://ruling-interactive-components-keywords.trycloudflare.com/admin">备用：管理后台</a>
-      <a id="ec-reports" href="https://ruling-interactive-components-keywords.trycloudflare.com/ec-reports">备用：周报 / 月报</a>
+      <a id="ec-reports" href="https://ruling-interactive-components-keywords.trycloudflare.com/ec-reports">备用：运营报告</a>
     </nav>
     <p id="entry-hint" class="hint">上方为本页发布时的备用地址。若自动连接失败，可手动尝试；备用地址也可能失效。</p>
     <noscript><p class="hint">浏览器未启用 JavaScript，无法确认最新地址。请手动选择上方备用入口；若不可用，请刷新此固定入口后重试。</p></noscript>
@@ -36,7 +36,7 @@
       const routes = {
         default: { path: '/ec-board', id: 'ec-board', label: '综合看板' },
         admin: { path: '/admin', id: 'ec-admin', label: '管理后台' },
-        reports: { path: '/ec-reports', id: 'ec-reports', label: '周报 / 月报' }
+        reports: { path: '/ec-reports', id: 'ec-reports', label: '运营报告' }
       };
       const entry = new URLSearchParams(location.search).get('entry');
       const mode = entry === 'admin' ? 'admin' : entry === 'reports' ? 'reports' : 'default';
